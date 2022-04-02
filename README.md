@@ -26,6 +26,8 @@ Correctness was ensured by asserting that the produced packages and idea suggess
 
 # Testing for performance.
 Flame graphs were generated to visually observer the execution time distribution at varius stages. Alongside the
-**perf** report's these observations informed the optimization directoins. Hyperfine was used to benchmark the models execution speed via the command `hyperfine -i "target/release/lab4 -w 5 -m 100` to run the benchmark a minimum of 100 times with 5 warmup executions.
-
-Something about how you tested this code for performance and know it is faster (about 3 paragraphs, referring to the flamegraph as appropriate.)
+**perf** report's these observations informed the optimization directoins. Hyperfine was used to benchmark the models execution speed via the command `hyperfine -i "target/release/lab4 -w 5 -m 100` to run the benchmark a minimum of 100 times with 5 warmup executions on the **ecetesla1** server. The original version of the program had a hyperfine performance of:
+![](images/dev_branch.png)
+The fully optimized program had a hyperfine performance of:
+![](images/kk_v3.png)
+That is an improvment of +20x. Here is the original flame graph:

@@ -9,9 +9,14 @@ through the generation of flamegraphs. As a consequence, three major bottlenecks
 
 # Technical Details
 
-1. The **Package::run(...)** and **IdeaGenerator::run(...)** method were processing their respective input files every time they were sending and event. Therefore changes where made to read the input file once per thread into a struct property. Then queries can be made quicker to this data struct than rereading input files
-2. The **Student::run(...)** would waste time recieving and sending **idea::Idea** events when the thread was in the process of accumulating packages to build an idea. Therefore a global **idea::Idea** vector was created as a worklist for the threads. Therefore, a thread would not recieve an idea until it was ready to process one. This reduced the overhead of receiving and sending ideas.
-3. The acquisition of mutexes to update the global idea and package checksums (i.e. **checksum::Checksum**) to process every event
+## A: Input File I/0
+The **Package::run(...)** and **IdeaGenerator::run(...)** method were processing their respective input files every time they were sending and event. Therefore changes where made to read the input file once per thread into a struct property. Then queries can be made quicker to this data struct than rereading input files
+
+## B: Bouncing Unprocessed Ideas
+The **Student::run(...)** would waste time recieving and sending **idea::Idea** events when the thread was in the process of accumulating packages to build an idea. Therefore a global **idea::Idea** vector was created as a worklist for the threads. Therefore, a thread would not recieve an idea until it was ready to process one. This reduced the overhead of receiving and sending ideas.
+
+## C: Checksum Updating
+The acquisition of mutexes to update the global idea and package checksums (i.e. **checksum::Checksum**) to process every event
 
 # Testing for correctness
 

@@ -21,9 +21,11 @@ The acquisition of mutexes to update the global idea and package checksums (i.e.
 Lastly, the **checksum::Checksum** data structure was originally designed to be an extension of the **String** class. This meant that checksums were stored as strings and needed to be decoded into byte arrays every **Checksum::update(...)**. Therefore the structure was modified to represented the internal checksum as a byte array to circumnavigate the decoding.
 
 # Testing for correctness
-
-Something about how you tested this code for correctness and know it works (about 1 paragraph).
+Correctness was ensured by asserting that the produced packages and idea suggession checksums matched with the ones consumed by the student threads. Furthermore, **valgrind** was used to ensure that all heap blocks were freed.
+![](images/checksums.png)
 
 # Testing for performance.
+Flame graphs were generated to visually observer the execution time distribution at varius stages. Alongside the
+**perf** report's these observations informed the optimization directoins. Hyperfine was used to benchmark the models execution speed via the command `hyperfine -i "target/release/lab4 -w 5 -m 100` to run the benchmark a minimum of 100 times with 5 warmup executions.
 
 Something about how you tested this code for performance and know it is faster (about 3 paragraphs, referring to the flamegraph as appropriate.)
